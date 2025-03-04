@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@layer components {
+  .mycontainer {
+    @apply container px-40 py-16 mx-auto;
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+.overflow-x-auto::-webkit-scrollbar {
+  width: 8px;
+  /* Adjust as needed */
+  height: 8px;
+  /* Adjust as needed */
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  /* Slightly transparent gray */
+  border-radius: 3px;
+  /* Rounded thumb */
+}
+
+/* Optional: Style the track */
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+  /* Darken on hover */
+}
