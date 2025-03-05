@@ -1,0 +1,1 @@
+to run backend - "node --watch server.js"
