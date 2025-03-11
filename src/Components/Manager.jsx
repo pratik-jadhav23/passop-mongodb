@@ -60,7 +60,7 @@ const Manager = () => {
                 let res = await fetch("http://localhost:3000/", {
                     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, id: uuidv4() })
                 })
-               
+
             }
             if (eyeIconRef.current.src.includes("icons/eyeOpen.svg")) eyeIconRef.current.src = "icons/eyeClose.svg"
             toast('New Password Saved', {
@@ -76,7 +76,7 @@ const Manager = () => {
             setForm({ site: "", username: "", password: "" })
         }
         else {
-            toast('Error: fill input fields length>=3', {
+            toast('Error: Fill input fields!!', {
                 position: "top-right",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -171,7 +171,7 @@ const Manager = () => {
                                         Add Password`
 
         let random = Math.floor(Math.random() * 111)
-        setForm({ site: `Dummy${random}`, username: `Dummyy${random}`, password: `Dummyyyyy${random}`})
+        setForm({ site: `Dummy${random}`, username: `Dummyy${random}`, password: `Dummyyyyy${random}` })
         if (eyeIconRef.current.src.includes("icons/eyeOpen.svg")) eyeIconRef.current.src = "icons/eyeClose.svg"
 
 
@@ -193,7 +193,7 @@ const Manager = () => {
                         <p className='font-normal text-base'>Your Own Password Manager</p>
                     </h1>
                     {/* -----------website input------------------- */}
-                    <div className='text-center p-1'> 
+                    <div className='text-center p-1'>
                         <input type="text" value={form.site} onChange={handleChange} name='site' placeholder='Enter Website URL' className='border-1 border-purple-500 rounded-sm w-full' ref={siteRef} />
                     </div>
                     <div className='md:flex justify-between'>
@@ -291,11 +291,11 @@ const Manager = () => {
                                             <div className='flex items-center justify-between'>
                                                 <div className='w-[85%] max-sm:overflow-x-scroll'>{"*".repeat(item.password.length)}</div>
                                                 <div className='hover:cursor-pointer' onClick={() => { handleCopy(item.password) }}><img src="icons/copy.svg" alt="copy.svg" /></div>
-                                            </div> 
+                                            </div>
                                         </td>
                                         <td className='border-1'>
                                             <div className='flex justify-around'>
-                                                <div className='hover:cursor-pointer' ref={editButtonRef} onClick={() => { handleEdit(item) }}><img src="icons/edit.svg" alt="edit.svg"   /></div>
+                                                <div className='hover:cursor-pointer' ref={editButtonRef} onClick={() => { handleEdit(item) }}><img src="icons/edit.svg" alt="edit.svg" /></div>
                                                 <div className='hover:cursor-pointer' onClick={() => { handleDelete(item) }}><img src="icons/delete.svg" alt="delete.svg" /></div>
                                             </div>
                                         </td>

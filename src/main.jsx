@@ -9,6 +9,7 @@ import {
 import Navbar from './Components/Navbar'
 import Login from './Components/Login'
 import About from './Components/About.jsx'
+import Signup from './Components/Signup.jsx';
 
 
 
@@ -32,6 +33,13 @@ const router = createBrowserRouter([
     element: <>
       <Navbar />
       <About />
+    </>
+  },
+  {
+    path: "/signup",
+    element: <>
+      <Navbar />
+      <Signup />
     </>
   },
 ]);

@@ -65,6 +65,28 @@ app.delete('/',async(req, res) => {
   res.send({success: true, result: findResult})
 })
 
+
+// ------------------SIGNUP----------------------
+
+// Get all users
+app.get('/signup',async(req, res) => {
+  // await client.connect();
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection('users');
+  const findResult = await collection.find({}).toArray();
+  res.json(findResult) 
+})
+//  save a user
+app.post('/signup',async(req, res) => {
+  // await client.connect();
+  const user = req.body
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection('users');
+  const findResult = await collection.insertOne(user);
+  res.send({success: true, result: findResult}) 
+})
  
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
