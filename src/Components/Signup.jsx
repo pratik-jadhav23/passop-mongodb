@@ -1,16 +1,4 @@
-// import React from 'react'
-
-// const Signup = () => {
-//   return (
-//     <>
-//     This is Signup
-//     </>
-//   )
-// }
-
-// export default Signup
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Signup = () => {
   const eyeIconRef = useRef()
@@ -22,14 +10,31 @@ const Signup = () => {
     password: '',
   });
 
+  const [usersArray, setusersArray] = useState([])
+
+  const users = async () => {
+    let req = await fetch("http://localhost:3000/signup")
+    let users = await req.json()
+    setusersArray(users)
+  }
+
+  useEffect(() => {
+    users()
+  }, [])
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission here (e.g., send data to an API)
-    console.log(formData);
+    // console.log(formData);
+    console.log('usersArray = ', usersArray)
+    // setusersArray([...passwordsArray, { ...formData }])
+    // let res = await fetch("http://localhost:3000/", {
+    //   method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, id: uuidv4() })
+    // })
   };
 
   const showPassword = () => {
