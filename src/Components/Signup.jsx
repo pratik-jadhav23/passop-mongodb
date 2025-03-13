@@ -24,13 +24,16 @@ const Signup = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // console.log(formData);
+    
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission here (e.g., send data to an API)
-    // console.log(formData);
+    console.log("normal clog = ",formData);
     console.log("usersArray = ", usersArray);
+    
     // setusersArray([...passwordsArray, { ...formData }])
     // let res = await fetch("http://localhost:3000/", {
     //   method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, id: uuidv4() })
