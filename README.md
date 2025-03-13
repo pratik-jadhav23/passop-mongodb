@@ -2,6 +2,12 @@
 ### to run backend - "node --watch server.js"
 
 [
+   {
+    "email": "jadhavp785@example.com",
+    "firstName": "pratik",
+    "lastName": "Jadhav",
+    "password": "123456"
+  },
   {
     "email": "jane.doe@example.com",
     "firstName": "Jane",

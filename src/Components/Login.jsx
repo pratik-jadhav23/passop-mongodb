@@ -61,7 +61,7 @@ const Login = () => {
                                 <div className='md:flex justify-between items-center p-1'>
                                     <div>
                                         <label htmlFor="password" className='pr-1 '>Password</label>
-                                        <input type="password" name="password" id="password" className='border-1 border-purple-500 rounded-sm pl-1' placeholder='Enter Password' required />
+                                        <input type="password" name="password" id="password" autocomplete="current-password" className='border-1 border-purple-500 rounded-sm pl-1' placeholder='Enter Password' required />
                                     </div>
                                     <div className='text-center'>
                                         <SimpleButtonWithText text={"Forgot?"} />
