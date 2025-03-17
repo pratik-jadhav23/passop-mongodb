@@ -10,6 +10,9 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate();
     const [usersArray, setusersArray] = useState([])
+    const [email, setEmail] = useState(''); // State to store email
+    const [password, setPassword] = useState(''); // State to store password
+
 
     const users = async () => {
         let req = await fetch("http://localhost:3000/signup")
@@ -21,9 +24,33 @@ const Login = () => {
         users()
     }, [])
 
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value); // Update email state on input change
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value); // Update password state on input change
+    };
+
+
     const LoginFunction = (event) => { 
         event.preventDefault();
         console.log('login clicked users = ', usersArray);
+        console.log('Email:', email);
+        console.log('Password:', password);
+        let userFound=usersArray.find(user => user.email === email)
+        console.log(userFound);
+        if(userFound){
+            if(userFound.password===password){
+                alert("Login Success")
+            }
+            else{
+                alert("Password Incorrect")
+            }
+        }
+        else{
+            alert("User Not Found")
+        }
         
      }
 
@@ -56,12 +83,12 @@ const Login = () => {
                                 <legend className='text-4xl font-bold pb-4'>Secure Login</legend>
                                 <div className='p-1' >
                                     <label htmlFor="email" className='pr-1'>Email Address</label>
-                                    <input type="email" name="email" id="email" className='border-1 border-purple-500 rounded-sm  pl-1' placeholder='Enter Email' required />
+                                    <input type="email" name="email" id="email" className='border-1 border-purple-500 rounded-sm  pl-1' placeholder='Enter Email' onChange={handleEmailChange} required />
                                 </div>
                                 <div className='md:flex justify-between items-center p-1'>
                                     <div>
                                         <label htmlFor="password" className='pr-1 '>Password</label>
-                                        <input type="password" name="password" id="password" autocomplete="current-password" className='border-1 border-purple-500 rounded-sm pl-1' placeholder='Enter Password' required />
+                                        <input type="password" name="password" id="password" autocomplete="current-password" className='border-1 border-purple-500 rounded-sm pl-1' placeholder='Enter Password' onChange={handlePasswordChange} required />
                                     </div>
                                     <div className='text-center'>
                                         <SimpleButtonWithText text={"Forgot?"} />
