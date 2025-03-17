@@ -29,55 +29,54 @@ const Signup = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // console.log(formData);
-    
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission here (e.g., send data to an API)
-    console.log("formdata = ",formData);
+    console.log("formdata = ", formData);
     console.log("usersArray = ", usersArray);
     // console.log(usersArray.filter(item => item.email === formData.email));
     // console.log(usersArray.find(user => user.email === formData.email));
-    
-    
-    if(usersArray.find(user => user.email === formData.email)){
+
+
+    if (usersArray.find(user => user.email === formData.email)) {
       setTimeout(() => {
         navigate('/login');
-      }, 4500); 
+      }, 4500);
       toast('User already exists!! Please Login', {
-                      position: "top-right",
-                      autoClose: 4000,
-                      hideProgressBar: false,
-                      closeOnClick: false,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                  });
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
     }
-    else{
+    else {
       // setusersArray({ ...formData })
       let res = await fetch("http://localhost:3000/signup", {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...formData})
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...formData })
       })
       setTimeout(() => {
         navigate('/login');
-      }, 4500); 
+      }, 4500);
       toast('User Successfully Registered. Please Login', {
-                      position: "top-right",
-                      autoClose: 4000,
-                      hideProgressBar: false,
-                      closeOnClick: false,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                  });
-
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-    
+
   };
 
   const showPassword = () => {
@@ -92,18 +91,18 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-purple-300">
-     <ToastContainer
-                        position="top-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick={false}
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="dark"
-                    />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-3xl font-semibold text-center text-purple-700 mb-6">
           Sign Up
