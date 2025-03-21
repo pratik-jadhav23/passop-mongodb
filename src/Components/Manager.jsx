@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import "./Manager.css";
 
+
 const Manager = () => {
   const eyeIconRef = useRef();
   const siteRef = useRef();
@@ -19,6 +20,7 @@ const Manager = () => {
     password: "",
   });
   const [passwordsArray, setpasswordsArray] = useState([]);
+
 
   const getPasswords = async () => {
     let req = await fetch("http://localhost:3000/");
