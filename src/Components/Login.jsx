@@ -1,6 +1,7 @@
 // --------------------------claude ai-----------------------------------------------------------------------
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useSearchParams  } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const passwordRef = useRef();
   const eyeIconRef = useRef();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const users = async () => {
     let req = await fetch("http://localhost:3000/signup");
@@ -30,14 +32,32 @@ const Login = () => {
 
   const LoginFunction = (event) => {
     event.preventDefault();
-    console.log("login clicked users = ", usersArray);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    // console.log("login clicked users = ", usersArray);
+    // console.log("Email:", email);
+    // console.log("Password:", password);
     let userFound = usersArray.find((user) => user.email === email);
-    console.log(userFound);
+    console.log('userfound = ',userFound);
     if (userFound) {
       if (userFound.password === password) {
-        alert("Login Success");
+        // alert("Login Success");
+        toast("Login Successufull Redirecting...", {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          setSearchParams({ user: userFound.email });
+          navigate("/");
+        }, 2000);
+        // setTimeout(() => {
+          // setSearchParams({ user: userFound.email });
+          // navigate("/");
+        // }, 5000);
       } else {
         alert("Password Incorrect");
       }
@@ -66,6 +86,18 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-purple-300">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-8">
         {/* Logo and Tagline */}
         <div className="text-center mb-8">
@@ -117,7 +149,7 @@ const Login = () => {
                 </label>
                 <button
                   className="text-sm text-purple-600 hover:text-purple-800 cursor-pointer"
-                  onClick={handleForgotPassword} 
+                  onClick={handleForgotPassword}
                 >
                   Forgot Password?
                 </button>

@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const eyeIconRef = useRef();
@@ -29,7 +28,6 @@ const Signup = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // console.log(formData);
-
   };
 
   const handleSubmit = async (e) => {
@@ -40,12 +38,11 @@ const Signup = () => {
     // console.log(usersArray.filter(item => item.email === formData.email));
     // console.log(usersArray.find(user => user.email === formData.email));
 
-
-    if (usersArray.find(user => user.email === formData.email)) {
+    if (usersArray.find((user) => user.email === formData.email)) {
       setTimeout(() => {
-        navigate('/login');
+        navigate("/login");
       }, 4500);
-      toast('User already exists!! Please Login', {
+      toast("User already exists!! Please Login", {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -55,17 +52,17 @@ const Signup = () => {
         progress: undefined,
         theme: "light",
       });
-
-    }
-    else {
+    } else {
       // setusersArray({ ...formData })
       let res = await fetch("http://localhost:3000/signup", {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...formData })
-      })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData }),
+      });
       setTimeout(() => {
-        navigate('/login');
+        navigate("/login");
       }, 4500);
-      toast('User Successfully Registered. Please Login', {
+      toast("User Successfully Registered. Please Login", {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -76,7 +73,6 @@ const Signup = () => {
         theme: "light",
       });
     }
-
   };
 
   const showPassword = () => {

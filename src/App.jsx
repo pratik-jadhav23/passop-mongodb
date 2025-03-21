@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 
 
 
-function App() {
+function App({ user }) {
   // const history = useHistory();
 
   // useEffect(() => {
@@ -20,6 +20,11 @@ function App() {
 
   return (
     <div className=''>
+       {user ? (
+        <p>Logged in as: {user}</p>
+      ) : (
+        <p>Not logged in.</p>
+      )}
       <Manager />
     </div>
   )

@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import "./Manager.css";
 
-
 const Manager = () => {
   const eyeIconRef = useRef();
   const siteRef = useRef();
@@ -20,7 +19,6 @@ const Manager = () => {
     password: "",
   });
   const [passwordsArray, setpasswordsArray] = useState([]);
-
 
   const getPasswords = async () => {
     let req = await fetch("http://localhost:3000/");
@@ -47,7 +45,9 @@ const Manager = () => {
       form.username.length >= 3 &&
       form.password.length >= 3
     ) {
-      if (saveButtonRef.current.innerHTML.includes("Save this edit")) {
+      if (
+        saveButtonRef.current.innerHTML.includes("Save this edit")
+      ) {
         let res = await fetch("http://localhost:3000/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -64,7 +64,10 @@ const Manager = () => {
                                         </lord-icon>
                                         Add Password`;
       } else {
-        setpasswordsArray([...passwordsArray, { id: uuidv4(), ...form }]);
+        setpasswordsArray([
+          ...passwordsArray,
+          { id: uuidv4(), ...form },
+        ]);
         let res = await fetch("http://localhost:3000/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -205,7 +208,9 @@ const Manager = () => {
             <span>Pass</span>
             <span className="text-purple-900">OP/</span>
             <span>&gt;</span>
-            <p className="font-normal text-base">Your Own Password Manager</p>
+            <p className="font-normal text-base">
+              Your Own Password Manager
+            </p>
           </h1>
           {/* -----------website input------------------- */}
           <div className="text-center p-1">
@@ -250,7 +255,11 @@ const Manager = () => {
                 onClick={showPassword}
                 className="pl-1 pr-1 absolute right-0 hover:cursor-pointer"
               >
-                <img ref={eyeIconRef} src="icons/eyeClose.svg" alt="" />
+                <img
+                  ref={eyeIconRef}
+                  src="icons/eyeClose.svg"
+                  alt=""
+                />
               </span>
             </div>
           </div>
@@ -407,7 +416,10 @@ const Manager = () => {
                             handleDelete(item);
                           }}
                         >
-                          <img src="icons/delete.svg" alt="delete.svg" />
+                          <img
+                            src="icons/delete.svg"
+                            alt="delete.svg"
+                          />
                         </div>
                       </div>
                     </td>
