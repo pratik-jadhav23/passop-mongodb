@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from 'react'
+import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -8,6 +8,7 @@ import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
+import { counterContext } from './context/context'
 import Navbar from './Components/Navbar'
 import Login from './Components/Login'
 import About from './Components/About.jsx'
@@ -15,8 +16,9 @@ import Signup from './Components/Signup.jsx';
 
 function AppWithDefaultUser() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [user, setUser] = useState(searchParams.get('user'))
   const navigate = useNavigate();
-  const user = searchParams.get('user'); // Get the 'user' parameter
+  // const user = searchParams.get('user'); // Get the 'user' parameter
 
   useEffect(() => {
     if (!searchParams.has('user')) {
