@@ -15,6 +15,7 @@ import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
 import About from "./Components/About.jsx";
 import Signup from "./Components/Signup.jsx";
+import Logout from "./Components/Logout.jsx";
 
 function AppWithDefaultUser() {
   const { user, setUser } = useContext(counterContext); // ✅ Correctly using useContext
@@ -83,6 +84,15 @@ const router = createBrowserRouter([
       <>
         <Navbar />
         <Signup />
+      </>
+    ),
+  },
+  {
+    path: "/logout",
+    element: (
+      <>
+        <Navbar />
+        <Logout /> {/* Include Logout Component */}
       </>
     ),
   },
