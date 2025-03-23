@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLinkClick = (link) => {
     // Toggle the active link on click
-    console.log("handlelickclick ()");
+    // console.log("handlelickclick ()"); 
 
     setActiveLink(link === activeLink ? null : link);
   };

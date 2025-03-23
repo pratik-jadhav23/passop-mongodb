@@ -23,9 +23,12 @@ client.connect();
 // Get all passwords
 app.get('/',async(req, res) => {
   // await client.connect();
-  console.log('Connected successfully to server');
+  const user = req.query.user; 
+  // const collectionName = req.body
+  console.log('get request on / user = ',user,"typeof user = ",typeof(user));
   const db = client.db(dbName);
-  const collection = db.collection('passwords');
+  let collection = db.collection('passwords');
+  if(user && user!=="null") collection = db.collection(`${user}`);
   const findResult = await collection.find({}).toArray();
   res.json(findResult) 
 })
@@ -34,9 +37,10 @@ app.get('/',async(req, res) => {
 app.post('/',async(req, res) => {
   // await client.connect();
   const password = req.body
-  console.log('Connected successfully to server');
+  console.log('/ post request password = ',password);
   const db = client.db(dbName);
-  const collection = db.collection('passwords');
+  let collection = db.collection('passwords');
+  if(password.user) collection = db.collection(`${password.user}`);
   // code to update password Array
   if(password.button==="edit"){
     const findResult = await collection.updateOne(
@@ -81,10 +85,11 @@ app.get('/signup',async(req, res) => {
 app.post('/signup',async(req, res) => {
   // await client.connect();
   const user = req.body
-  console.log('Connected successfully to server');
+  console.log('signup post request = ',user);
   const db = client.db(dbName);
   const collection = db.collection('users');
   const findResult = await collection.insertOne(user);
+  // const newcollection = db.collection(`${user.email}`);
   res.send({success: true, result: findResult}) 
 })
  

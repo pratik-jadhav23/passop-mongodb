@@ -1,10 +1,12 @@
 import js from "@eslint/js";
 import React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import DisplayData from "./DisplayData";
 import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import "./Manager.css";
+import { counterContext } from "../context/context";
+
 
 const Manager = () => {
   const eyeIconRef = useRef();
@@ -19,9 +21,10 @@ const Manager = () => {
     password: "",
   });
   const [passwordsArray, setpasswordsArray] = useState([]);
+  const { user, setUser } = useContext(counterContext);
 
   const getPasswords = async () => {
-    let req = await fetch("http://localhost:3000/");
+    let req = await fetch(`http://localhost:3000/?user=${user}`);
     let passwords = await req.json();
     setpasswordsArray(passwords);
   };
@@ -51,7 +54,7 @@ const Manager = () => {
         let res = await fetch("http://localhost:3000/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, button: "edit" }),
+          body: JSON.stringify({ ...form, button: "edit",user }),
         });
         getPasswords();
 
@@ -71,7 +74,7 @@ const Manager = () => {
         let res = await fetch("http://localhost:3000/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, id: uuidv4() }),
+          body: JSON.stringify({ ...form, id: uuidv4(),user }),
         });
       }
       if (eyeIconRef.current.src.includes("icons/eyeOpen.svg"))
@@ -88,7 +91,7 @@ const Manager = () => {
       });
       setForm({ site: "", username: "", password: "" });
     } else {
-      toast("Error: Fill input fields!!", {
+      toast("Fill input fields!!", {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -387,7 +390,7 @@ const Manager = () => {
                     <td className="border-1">
                       <div className="flex items-center justify-between">
                         <div className="w-[85%] max-sm:overflow-x-scroll">
-                          {"*".repeat(item.password.length)}
+                          {/* {"*".repeat(item.password.length)} */}
                         </div>
                         <div
                           className="hover:cursor-pointer"

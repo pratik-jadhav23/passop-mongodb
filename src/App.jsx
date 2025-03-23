@@ -23,7 +23,7 @@ function App({ user }) {
        {user ? (
         <p>Logged in as: {user}</p>
       ) : (
-        <p>Not logged in.</p>
+        <p>Not logged in. Dummy Passwords</p>
       )}
       <Manager />
     </div>

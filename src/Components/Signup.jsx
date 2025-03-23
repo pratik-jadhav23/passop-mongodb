@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { counterContext } from "../context/context";
+
 
 const Signup = () => {
   const eyeIconRef = useRef();
@@ -12,8 +14,9 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
   const [usersArray, setusersArray] = useState([]);
+  const { user, setUser } = useContext(counterContext);
+  
 
   const users = async () => {
     let req = await fetch("http://localhost:3000/signup");

@@ -1,7 +1,13 @@
 // --------------------------claude ai-----------------------------------------------------------------------
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate,useSearchParams  } from "react-router-dom";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+} from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { counterContext } from "../context/context";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +17,7 @@ const Login = () => {
   const passwordRef = useRef();
   const eyeIconRef = useRef();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user, setUser } = useContext(counterContext);
 
   const users = async () => {
     let req = await fetch("http://localhost:3000/signup");
@@ -32,14 +39,14 @@ const Login = () => {
 
   const LoginFunction = (event) => {
     event.preventDefault();
-    // console.log("login clicked users = ", usersArray);
-    // console.log("Email:", email);
-    // console.log("Password:", password);
     let userFound = usersArray.find((user) => user.email === email);
-    console.log('userfound = ',userFound);
     if (userFound) {
       if (userFound.password === password) {
-        // alert("Login Success");
+        setUser(userFound.email);
+        setSearchParams({ user }); // ✅ Update search params when user changes
+        setTimeout(() => {
+          navigate("/"); // ✅ Redirect after setting the user
+        }, 2000);
         toast("Login Successufull Redirecting...", {
           position: "top-right",
           autoClose: 1500,
@@ -50,14 +57,6 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
-        setTimeout(() => {
-          setSearchParams({ user: userFound.email });
-          navigate("/");
-        }, 2000);
-        // setTimeout(() => {
-          // setSearchParams({ user: userFound.email });
-          // navigate("/");
-        // }, 5000);
       } else {
         alert("Password Incorrect");
       }
