@@ -24,11 +24,9 @@ client.connect();
 app.get('/',async(req, res) => {
   // await client.connect();
   const user = req.query.user; 
-  // const collectionName = req.body
-  console.log('get request on / user = ',user,"typeof user = ",typeof(user));
   const db = client.db(dbName);
   let collection = db.collection('passwords');
-  if(user && user!=="null") collection = db.collection(`${user}`);
+  if(user && user!=="null" ) collection = db.collection(`${user}`);
   const findResult = await collection.find({}).toArray();
   res.json(findResult) 
 })
