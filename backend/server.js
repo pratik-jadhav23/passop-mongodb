@@ -6,19 +6,57 @@ const { MongoClient } = require('mongodb');
 const bodyparser = require('body-parser')
 var cors = require('cors');
 const { use } = require('react');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+
+const app = express()
+app.use(bodyparser.json())
+app.use(cors()) 
+app.use(cookieParser());
 
 const port = 3000
-const app = express()
-app.use(cors()) 
-const url = 'mongodb://localhost:27017'; // Connection URL
-const client = new MongoClient(url);
+const client = new MongoClient(process.env.MONGO_URI);
 const dbName = 'passop'
-app.use(bodyparser.json())
+const SECRET_KEY = '123456';
+const COOKIE_EXPIRATION = 30*1000 //30seconds
 
+// const db = client.db(dbName);
+// const usersCollection = db.collection('users'); 
+// const users = db.collection('users');
+// console.log(users);
 // Use connect method to connect to the server 
-client.connect();
+// client.connect();
  
 // console.log('',process.env.MONGO_URI,client);
+
+async function connectToDb() {
+  try {
+    await client.connect(); // Wait for the connection to be established
+    console.log('Connected to MongoDB');
+
+    const db = client.db(dbName); // Select the database
+    const usersCollection = db.collection('users'); // Access the users collection
+
+    // Fetch all users
+    const users = await usersCollection.find({}).toArray(); // Find all users and convert to an array
+
+    // console.log('Users Data:', users); // Logs the users data
+    return users; // Return users data if needed elsewhere
+
+  } catch (err) {
+    console.error('Error connecting to MongoDB:', err);
+  }
+  console.log('Users Data:', users); // Logs the users data
+
+}
+
+// Call the function to connect and fetch users data
+connectToDb();
+// console.log(users)
+
+
+
+
 
 // Get all passwords
 app.get('/',async(req, res) => {
@@ -27,11 +65,11 @@ app.get('/',async(req, res) => {
   const db = client.db(dbName);
   let collection = db.collection('passwords');
   if(user && user!=="null" ) collection = db.collection(`${user}`);
-  const findResult = await collection.find({}).toArray();
+  const findResult = await collection.find({}).toArray(); 
   res.json(findResult) 
 })
 
-// save a password
+// save a password 
 app.post('/',async(req, res) => {
   // await client.connect();
   const password = req.body
@@ -74,7 +112,7 @@ app.delete('/',async(req, res) => {
 app.get('/signup',async(req, res) => {
   // await client.connect();
   console.log('Connected successfully to server');
-  const db = client.db(dbName);
+  const db = client.db(dbName); 
   const collection = db.collection('users');
   const findResult = await collection.find({}).toArray();
   res.json(findResult) 

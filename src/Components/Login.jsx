@@ -44,9 +44,7 @@ const Login = () => {
       if (userFound.password === password) {
         setUser(userFound.email);
         setSearchParams({ user }); // ✅ Update search params when user changes
-        setTimeout(() => {
-          navigate("/"); // ✅ Redirect after setting the user
-        }, 2000);
+        
         toast("Login Successufull Redirecting...", {
           position: "top-right",
           autoClose: 1500,
@@ -57,6 +55,9 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
+        setTimeout(() => {
+          navigate("/"); // ✅ Redirect after setting the user
+        }, 2000);
       } else {
         alert("Password Incorrect");
       }
