@@ -46,14 +46,24 @@ async function connectToDb() {
   } catch (err) {
     console.error('Error connecting to MongoDB:', err);
   }
-  console.log('Users Data:', users); // Logs the users data
-
 }
 
-// Call the function to connect and fetch users data
-connectToDb();
-// console.log(users)
+async function fetchUsers() {
+  try {
+    const users = await connectToDb(); // Await the result from connectToDb
+    // console.log('Fetched Users:', users); // Logs the users data
+    return users
+  } catch (err) {
+    console.error('Error fetching users:', err);
+  }
+}
 
+const users = fetchUsers(); // Call the function to fetch users
+
+
+// Call the function to connect and fetch users data
+// const users = connectToDb();
+console.log('Users Data:', users); // Logs the users data
 
 
 
